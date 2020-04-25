@@ -1,11 +1,14 @@
-import express from 'express';
+import express, { json } from 'express';
+
+import router from './router';
 
 const app = express();
 
-app.get('/', (req, res) => res.json({ message: 'Sup guys!' }));
+app.use(json());
+app.use(router);
 
 const port = 3333;
 
 app.listen(port, () => {
-  console.log(`👂 Listening on port ⚓${port}`);
+  console.info(`👂 Listening on port ⚓${port}`);
 });
