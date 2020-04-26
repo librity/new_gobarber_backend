@@ -1,23 +1,24 @@
 import { Request, Response } from 'express';
-import { uuid } from 'uuidv4';
-import { startOfHour, parseISO, isEqual } from 'date-fns';
+import { startOfHour, parseISO } from 'date-fns';
 
-interface AppointmentI {
-  id: string;
-  provider: string;
-  date: Date;
-}
+import AppointmentsRepositoy from '../repositories/AppointmentsRepositoy';
 
-const appointments: AppointmentI[] = [];
+const appointmentsRepositoy = new AppointmentsRepositoy();
 
 class AppointmentsController {
+  static index(req: Request, res: Response): Response {
+    const appointments = appointmentsRepositoy.all();
+
+    return res.json(appointments);
+  }
+
   static create(req: Request, res: Response): Response {
     const { provider, date } = req.body;
 
     const parsedDate = startOfHour(parseISO(date));
 
-    const appointmentOnTheSameDateAlreadyExists = appointments.find(
-      appointment => isEqual(parsedDate, appointment.date),
+    const appointmentOnTheSameDateAlreadyExists = appointmentsRepositoy.findByDate(
+      parsedDate,
     );
 
     if (appointmentOnTheSameDateAlreadyExists)
@@ -26,13 +27,10 @@ class AppointmentsController {
         message: 'Appointment on the same date already exists.',
       });
 
-    const appointment = {
-      id: uuid(),
+    const appointment = appointmentsRepositoy.create({
       provider,
       date: parsedDate,
-    };
-
-    appointments.push(appointment);
+    });
 
     return res.json(appointment);
   }
