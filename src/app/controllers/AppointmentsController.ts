@@ -15,12 +15,12 @@ class AppointmentsController {
 
   static async create(req: Request, res: Response): Promise<Response> {
     try {
-      const { provider, date } = req.body;
+      const { provider_id, date } = req.body;
 
       const parsedDate = parseISO(date);
 
       const appointment = await CreateAppointmentService.execute({
-        provider,
+        provider_id,
         date: parsedDate,
       });
 

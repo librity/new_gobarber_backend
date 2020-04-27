@@ -6,13 +6,13 @@ import AppointmentsRepositoy from '../repositories/AppointmentsRepositoy';
 import appointmentErrors from '../errors/appointmentErrors';
 
 interface CreateAppointmentDTO {
-  provider: string;
+  provider_id: string;
   date: Date;
 }
 
 class CreateAppointmentService {
   public static async execute({
-    provider,
+    provider_id,
     date,
   }: CreateAppointmentDTO): Promise<Appointment> {
     const appointmentsRepositoy = getCustomRepository(AppointmentsRepositoy);
@@ -27,7 +27,7 @@ class CreateAppointmentService {
       throw appointmentErrors.dateTaken;
 
     const appointment = appointmentsRepositoy.create({
-      provider,
+      provider_id,
       date: appointmentDate,
     });
 
