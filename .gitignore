@@ -108,6 +108,8 @@ dist/
 tmp/
 temp/
 
+!tmp/.gitkeep
+
 # End of https://www.gitignore.io/api/node
 
 node_modules

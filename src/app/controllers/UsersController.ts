@@ -20,6 +20,14 @@ class UsersController {
       return res.status(400).json({ error });
     }
   }
+
+  static async updateAvatar(req: Request, res: Response): Promise<Response> {
+    try {
+      return res.json({});
+    } catch (error) {
+      return res.status(400).json({ error });
+    }
+  }
 }
 
 export default UsersController;
