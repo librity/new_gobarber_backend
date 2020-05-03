@@ -1,7 +1,8 @@
 import { getRepository } from 'typeorm';
-import { resolve } from 'path';
+import { join } from 'path';
 import fs from 'fs';
 
+import uploadConfig from '../../config/upload';
 import User from '../models/User';
 import userErrors from '../errors/userErrors';
 
@@ -22,16 +23,9 @@ class UpdateUserAvatarService {
     if (!user) throw userErrors.invalidUserId;
 
     if (user.avatar) {
-      const userAvatarFilePath = resolve(
-        __dirname,
-        '..',
-        '..',
-        '..',
-        'tmp',
-        user.avatar,
-      );
-      const userAvatarFileExists = await fs.promises.stat(userAvatarFilePath);
+      const userAvatarFilePath = join(uploadConfig.directory, user.avatar);
 
+      const userAvatarFileExists = await fs.promises.stat(userAvatarFilePath);
       if (userAvatarFileExists) await fs.promises.unlink(userAvatarFilePath);
     }
 

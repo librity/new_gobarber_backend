@@ -1,6 +1,9 @@
+import ApplicationError from './ApplicationError';
+
 export default {
-  dateTaken: {
-    code: '01-001',
-    description: 'Appointment on the same date already exists.',
-  },
+  dateTaken: new ApplicationError(
+    403,
+    '01-001',
+    'Appointment on the same date already exists.',
+  ),
 };

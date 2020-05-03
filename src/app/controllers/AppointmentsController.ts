@@ -14,20 +14,16 @@ class AppointmentsController {
   }
 
   static async create(req: Request, res: Response): Promise<Response> {
-    try {
-      const { provider_id, date } = req.body;
+    const { provider_id, date } = req.body;
 
-      const parsedDate = parseISO(date);
+    const parsedDate = parseISO(date);
 
-      const appointment = await CreateAppointmentService.execute({
-        provider_id,
-        date: parsedDate,
-      });
+    const appointment = await CreateAppointmentService.execute({
+      provider_id,
+      date: parsedDate,
+    });
 
-      return res.json(appointment);
-    } catch (error) {
-      return res.status(400).json({ error });
-    }
+    return res.json(appointment);
   }
 }
 

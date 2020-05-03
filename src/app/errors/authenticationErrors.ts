@@ -1,14 +1,11 @@
+import ApplicationError from './ApplicationError';
+
 export default {
-  defaultError: {
-    code: '03-001',
-    description: 'Incorrect email/password combination.',
-  },
-  JWTmissing: {
-    code: '03-002',
-    description: 'JWT token is missing.',
-  },
-  invalidJWT: {
-    code: '03-003',
-    description: 'Invalid JWT token.',
-  },
+  defaultError: new ApplicationError(
+    401,
+    '03-001',
+    'Incorrect email/password combination.',
+  ),
+  JWTmissing: new ApplicationError(401, '03-002', 'JWT token is missing.'),
+  invalidJWT: new ApplicationError(401, '03-003', 'Invalid JWT token.'),
 };
