@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import ApplicationError from '../errors/ApplicationError';
+import AppError from '../errors/AppError';
 
 export default (
   err: Error,
@@ -7,7 +7,7 @@ export default (
   res: Response,
   _next: NextFunction,
 ) => {
-  if (err instanceof ApplicationError) {
+  if (err instanceof AppError) {
     return res.status(err.httpCode).json({
       status: 'error',
       internalCode: err.internalCode,

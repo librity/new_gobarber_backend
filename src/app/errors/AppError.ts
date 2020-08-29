@@ -1,4 +1,4 @@
-class ApplicationError {
+class AppError {
   public readonly httpCode: number;
 
   public readonly internalCode: string;
@@ -12,4 +12,4 @@ class ApplicationError {
   }
 }
 
-export default ApplicationError;
+export default AppError;
