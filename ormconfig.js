@@ -4,11 +4,11 @@ module.exports = {
   port: process.env.DB_PORT,
   username: process.env.DB_USER,
   password: process.env.DB_PASS,
-  database: process.env.DB_NAME,
-  // database:
-  //   process.env.NODE_ENV === 'development'
-  //     ? process.env.DB_NAME_DEV
-  //     : process.env.DB_NAME_TEST,
+  database:
+    process.env.NODE_ENV === 'test'
+      ? process.env.TEST_DB_NAME
+      : process.env.DB_NAME,
+
   // synchronize:
   //   process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test'
   //     ? true

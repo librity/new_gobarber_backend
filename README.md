@@ -1,18 +1,16 @@
-# new_bootcamp_lesson_5
+# GoBarber 2.0 Back End
 
-- create a dotenv file:
+## Database Setup
 
-```bash
-$ cp .env.example .env
-```
+Create a persistent postgres docker container.
 
-- check what processes are using postgres' default port:
+1. Check whether any processes are using postgres' default port:
 
 ```bash
 $ lsof -i :5432
 ```
 
-- create a persistent postgres docker container:
+2. Create the container:
 
 _The first port number is the port we will interface with through our machine, and the second is the port that postgres will expose inside the container._
 
@@ -26,9 +24,30 @@ _For the most part, there's no reason to change the second port number._
 $ docker run --name postgres -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d -t postgres
 ```
 
-- check container's logs:
+3. check container's logs:
 
 ```bash
 $ docker logs postgres
 ```
 
+4. Access postgres and create the appropriate user and databases.
+
+## App Setup
+
+1. Create and configure a dotenv file:
+
+```bash
+$ cp .env.example .env
+```
+
+2. Install dependencies, run migrations and deploy the dev server:
+
+```bash
+$ yarn install && yarn typeorm migration:run && yarn dev:server
+```
+
+## Run Tests
+
+```bash
+$ yarn test
+```
