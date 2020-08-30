@@ -12,9 +12,13 @@ import './database';
 
 const app = express();
 
+const corsConfig =
+  process.env.NODE_ENV === 'development' ? {} : process.env.CORS_ORIGIN;
+
+app.use(cors(corsConfig));
+
 app.use(json());
 app.use('/files', express.static(uploadConfig.directory));
-app.use(cors());
 app.use(router);
 
 app.use(globalAppErrorHandler);
